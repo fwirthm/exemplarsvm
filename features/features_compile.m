@@ -1,7 +1,5 @@
 % Compile the image resize function
-%mex -O resize.cc
 mex CXX=gcc CXXOPTIMFLAGS='-O3 -DNDEBUG -funroll-all-loops' resize.cc
-
 
 % Compile Felzenszwalb's 31D features
 mex -O features_pedro.cc
@@ -14,5 +12,8 @@ mex -O features_raw.cc
 %mex CC=gcc LD=gcc COPTIMFLAGS='-O3 -DNDEBUG' fconvblas.cc -lmwblas ...
 %          -o fconvblas
 
+%todo
 mex CXX=gcc CXXOPTIMFLAGS='-O3 -DNDEBUG -funroll-all-loops' fconvblas.cc ...
         -lmwblas
+%mex CXX=gcc CXXOPTIMFLAGS='-O3 -DNDEBUG -funroll-all-loops' fconvblas.cc ...
+%        -lmwblas
