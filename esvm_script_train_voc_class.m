@@ -63,6 +63,8 @@ params.dataset_params = dataset_params;
 
 %Initialize exemplar stream
 stream_params.stream_set_name = 'trainval';
+%%changed to make it faster for testing by Florian Wirthmueller (before it was 10000):
+%stream_params.stream_max_ex = 2;
 stream_params.stream_max_ex = 10000;
 stream_params.must_have_seg = 0;
 stream_params.must_have_seg_string = '';
@@ -86,6 +88,8 @@ initial_models = esvm_initialize_exemplars(e_stream_set, params, models_name);
 %% Perform Exemplar-SVM training
 train_params = params;
 train_params.detect_max_scale = 0.5;
+%%added to make it faster for testing by Florian Wirthmueller:
+%train_params.train_max_mined_images = 200;
 train_params.detect_exemplar_nms_os_threshold = 1.0; 
 train_params.detect_max_windows_per_exemplar = 100;
 
@@ -94,12 +98,16 @@ val_params.detect_exemplar_nms_os_threshold = 0.5;
 val_params.gt_function = @esvm_load_gt_function;
 val_set_name = ['trainval'];
 val_set = esvm_get_pascal_set(dataset_params, val_set_name);
+%%added to make it faster for testing by Florian Wirthmueller:
+%val_set = val_set(1:100);
 
 %% Define test-set
 test_params = params;
 test_params.detect_exemplar_nms_os_threshold = 0.5;
 test_set_name = ['test'];
 test_set = esvm_get_pascal_set(dataset_params, test_set_name);
+%%added to make it faster for testing by Florian Wirthmueller:
+%test_set = test_set(1:100);
 
 %% Train the exemplars and get updated models name
 [models,models_name] = esvm_train_exemplars(initial_models, ...

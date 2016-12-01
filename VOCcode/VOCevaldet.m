@@ -153,6 +153,11 @@ tp=cumsum(tp);
 rec=tp/npos;
 prec=tp./(fp+tp);
 
+nneg__ = 4952 - npos;
+global fpr;
+fpr = fp./nneg__;
+
+
 % compute average precision
 ap=0;
 for t=0:0.1:1

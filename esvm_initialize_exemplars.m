@@ -58,9 +58,13 @@ end
 
 cache_dir =  ...
     sprintf('%s/models/',params.dataset_params.localdir);
+%added by Florian Wirthmueller:           
+%cache_dir = strrep(cache_dir, '//', '/');        
 
 cache_file = ...
     sprintf('%s/%s.mat',cache_dir,models_name);
+%added by Florian Wirthmueller:           
+%cache_file = strrep(cache_file, '//', '/');    
 
 if CACHE_FILE ==1 && fileexists(cache_file)
   models = load(cache_file);
@@ -71,9 +75,11 @@ end
 results_directory = ...
     sprintf('%s/models/%s/',params.dataset_params.localdir, ...
             models_name);
-
+%added by Florian Wirthmueller:           
+%results_directory = strrep(results_directory, '//', '/');  
+        
 if CACHE_FILE==1 && ~exist(results_directory,'dir')
-  fprintf(1,'Making directory %s\n',results_directory);
+  fprintf(1,'Making directory %s\n',results_directory)
   mkdir(results_directory);
 end
 
@@ -105,7 +111,9 @@ for i = 1:length(e_set)
   %                results_directory, curid, objectid, cls);
   
   filer = sprintf('%s/%s',results_directory, e_set{i}.filer);
-  
+  %added by Florian Wirthmueller:           
+  %filer = strrep(filer, '//', '/');  
+
   allfiles{i} = filer;
   if ~isfield(params,'init_params')
     error('Warning, cannot initialize without params.init_params\n');

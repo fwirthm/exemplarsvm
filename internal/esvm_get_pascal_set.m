@@ -54,6 +54,14 @@ if ~exist('class','var') | (length(class)==0)
   
 elseif (class(1) == '-')
   class = class(2:end);
+  %%edited by Florian Wirthmueller
+%   string = VOCopts.clsimgsetpath;
+%   modifiedStr = strrep(string, '\', '/');
+%   filename__ = strcat(class,'_',target_directory);
+%   modifiedStr = strrep(modifiedStr, '%s_%s', filename__);
+%   [neg_set,gt] = textread(modifiedStr,'%s %d');
+  
+  %%replaced code
   [neg_set,gt] = textread(sprintf(VOCopts.clsimgsetpath,...
                                   class,target_directory),...
                           '%s %d');
@@ -65,7 +73,7 @@ elseif (class(1) == '+')
                                   class,target_directory);
   try
     [neg_set,gt] = textread(filer,...
-                            '%s %d');
+                            '%s %d');                    
   catch
     fprintf(1,'Cannot load %s\n',filer);
     error('Cannot load file');
@@ -76,4 +84,9 @@ else
                  ' start with plus or minus sign'], class));
 end
 
+%%edited by Florian Wirthmueller
+% string = VOCopts.imgpath;
+% modifiedStr = strrep(string, '\', '/');
+% bg = cellfun2(@(x)sprintf(modifiedStr,x),neg_set);
+%replaced code:
 bg = cellfun2(@(x)sprintf(VOCopts.imgpath,x),neg_set);

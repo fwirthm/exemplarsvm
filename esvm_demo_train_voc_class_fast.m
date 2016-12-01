@@ -70,7 +70,7 @@ params.dataset_params = dataset_params;
 
 %Initialize exemplar stream
 stream_params.stream_set_name = 'trainval';
-stream_params.stream_max_ex = 1;
+stream_params.stream_max_ex = 10;
 stream_params.must_have_seg = 0;
 stream_params.must_have_seg_string = '';
 stream_params.model_type = 'exemplar'; %must be scene or exemplar;
@@ -85,8 +85,9 @@ neg_set = esvm_get_pascal_set(dataset_params, ['train-' cls]);
 %Choose a models name to indicate the type of training run we are doing
 models_name = ...
     [cls '-' params.init_params.init_type ...
-     '.' params.model_type];
+     '.' params.model_type];  
 
+fprintf('second point\n');   
 initial_models = esvm_initialize_exemplars(e_stream_set, params, models_name);
 
 %% Perform Exemplar-SVM training

@@ -127,8 +127,10 @@ clf
 VOCopts.filename = filer;
 %NOTE(TJM): this is really close to working without writing a local
 %evaluation file, and needs to be fixed soon
-[results.recall,results.prec,results.ap,results.apold,results.fp,results.tp,results.npos,results.corr] = VOCevaldet(VOCopts,'comp3',cls,true);%,cpres.gtids, cpres.recs,stuff);
 
+[results.recall,results.prec,results.ap,results.apold,results.fp,results.tp,results.npos,results.corr] = VOCevaldet(VOCopts,'comp3',cls,true);%,cpres.gtids, cpres.recs,stuff);
+global Myresults;
+Myresults = results;
 %fprintf(1,'took %.3f sec\n',ftime);
 
 if exist(filerlock,'dir')

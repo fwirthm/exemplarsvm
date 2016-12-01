@@ -36,6 +36,8 @@ streamname = sprintf('%s/%s-%s-%d-%s%s.mat',...
                      stream_params.stream_max_ex,...
                      stream_params.model_type,...
                      stream_params.must_have_seg_string);
+%added by Florian Wirthmueller:           
+% streamname = strrep(streamname, '//', '/');                 
 
 if CACHE_FILE && fileexists(streamname)
   fprintf(1,'Loading %s\n',streamname);
@@ -44,16 +46,31 @@ if CACHE_FILE && fileexists(streamname)
   return;
 end
 
-
 if length(stream_params.cls)>0 && isfield(dataset_params,'clsimgsetpath') ...
       && isfield(stream_params,'stream_set_name')
 
   %% Load ids of all images in trainval that contain cls
+  %%edited by Florian Wirthmueller
+%   string = dataset_params.clsimgsetpath;
+%   modifiedStr = strrep(string, '\', '/');
+%   filename__ = strcat(stream_params.cls,'_',stream_params.stream_set_name);
+%   modifiedStr = strrep(modifiedStr, '%s_%s', filename__);
+%   [ids,gt] = textread(modifiedStr, '%s %d');
+  
+%replaced code:
   [ids,gt] = textread(sprintf(dataset_params.clsimgsetpath,stream_params.cls,...
-                              stream_params.stream_set_name),...
-                      '%s %d');
+                            stream_params.stream_set_name),...
+                     '%s %d');
+  
   ids = ids(gt==1);
+  
+  %%edited by Florian Wirthmueller
+%   string = dataset_params.annopath;
+%   modifiedStr = strrep(string, '\', '/');
+%   all_recs = cellfun2(@(x)sprintf(modifiedStr,x),ids);
+  %replaced code:
   all_recs = cellfun2(@(x)sprintf(dataset_params.annopath,x),ids);
+  
   %BUG(TJM):??? make sure this works on voc training regular style
 else
   
