@@ -46,6 +46,9 @@ params.detect_levels_per_octave = 10;
 params.init_params = init_params;
 [f_real,scales] = esvm_pyramid(I_real_pad, params);
 
+global FEAT;
+
+
 %Extract the regions most overlapping with Ibox from each level in the pyramid
 [masker,sizer] = get_matching_masks(f_real, Ibox);
 
@@ -54,20 +57,38 @@ params.init_params = init_params;
                                                 sizer);
 [uu,vv] = find(mask);
 curfeats = f_real{targetlvl}(min(uu):max(uu),min(vv):max(vv),:);
+FEAT = curfeats;
 
 model.init_params = init_params;
 model.hg_size = size(curfeats);
 model.mask = logical(ones(model.hg_size(1),model.hg_size(2)));
 
 fprintf(1,'initialized with HOG_size = [%d %d]\n',model.hg_size(1),model.hg_size(2));
-model.w = curfeats - mean(curfeats(:));
+
+%%replaced by Florian Wirthmüller
+%new code:
+model.w = curfeats;
+%replaced code:
+%%model.w = curfeats - mean(curfeats(:));
+
 model.b = 0;
 model.x = curfeats;
 
 %Fire inside self-image to get detection location
+%Florian Wirthmüller: important!
+
+%%replaced by Florian Wirthmüller
+%replaced code:
 [model.bb, model.x] = get_target_bb(model, I, init_params);
+%new code:
+%model.bb = zeros(1,size(curfeats,2));
 
 %Normalized-HOG initialization
+
+%%replaced by Florian Wirthmüller
+%new code:
+%model.w = reshape(model.x,size(model.w));
+%replaced code:
 model.w = reshape(model.x,size(model.w)) - mean(model.x(:));
 
 if isfield(init_params,'wiggle_number') && ...

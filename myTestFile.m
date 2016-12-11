@@ -2,6 +2,14 @@ tic;
 close all;
 clear all;
 clc;
+global TestMat;
+global FEAT;
+global W2;
+global IM;
+global Sbin;
+global Hog_dim1;
+global Hog_dim2;
+
 data_dir = 'C:/Users/fi_student/PASCAL_data/VOCdevkit/'
 dataset ='VOC2007'
 results_dir ='C:/Users/fi_student/results/2'

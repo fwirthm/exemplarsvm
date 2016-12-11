@@ -25,7 +25,7 @@ for i = 1:length(pinds)
   for i = 1:N
     m = models{i};
     o = (i-1)*3;
-    subplot(N,3,o+1)
+    subplot(N,4,o+1)
     I = convert_to_I(m.I);
     imagesc(I)
     plot_bbox(m.model.bb(1,:),'',...
@@ -36,7 +36,7 @@ for i = 1:length(pinds)
     axis off
     title(sprintf('Ex %s.%d %s',m.curid,m.objectid,m.cls))
     
-    subplot(N,3,o+2)
+    subplot(N,4,o+2)
     onimage = m.model.mask*1;
     onimage(onimage==0) = 2;
     colors = [1 0 0; 0 0 1];
@@ -63,7 +63,7 @@ for i = 1:length(pinds)
                   m.model.hg_size(1),m.model.hg_size(2),...
                   curos,range(u)+1,range(v)+1));
     
-    subplot(N,3,o+3)
+    subplot(N,4,o+3)
     hogim = HOGpicture(repmat(m.model.mask,[1 1 size(m.model.w,3)]).* ...
                        m.model.w);
     imagesc(hogim)
@@ -71,6 +71,21 @@ for i = 1:length(pinds)
     axis off
     grid on
     title('HOG features')
+    
+    subplot(N,4,o+4)
+    colorim = HOGpicture_CN(repmat(m.model.mask,[1 1 size(m.model.w,3)]).* ...
+                       m.model.w, 20);
+    imagesc(colorim)
+    axis image
+    axis off
+    grid on
+    title('Color features')
+    
+    global W2;
+    W2 = repmat(m.model.mask,[1 1 size(m.model.w,3)]).* ...
+                       m.model.w;
+    
+    
     drawnow
   end
 end

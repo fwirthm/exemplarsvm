@@ -132,6 +132,7 @@ for i = 1:length(e_set)
   I = convert_to_I(e_set{i}.I);
 
   %Call the init function which is a mapping from (I,bbox) to (model)
+  %florian Wirthmüller: this is esvm_initialize_goalsize_exemplar
   [model] = params.init_params.init_function(I, bbox, params.init_params);
   
   clear m
