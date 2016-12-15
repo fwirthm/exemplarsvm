@@ -80,6 +80,7 @@ curfeats = cat(2,curfeats{:});
 m.model.init_params = init_params;
 m.model.hg_size = [hg_size features];
 m.model.mask = ones(hg_size(1),hg_size(2));
+
 m.model.w = mean(curfeats,2);
 m.model.w = m.model.w - mean(m.model.w(:));
 m.model.w = reshape(m.model.w, m.model.hg_size);

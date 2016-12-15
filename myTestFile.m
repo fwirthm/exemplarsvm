@@ -1,6 +1,6 @@
 tic;
-close all;
-clear all;
+close all
+clear all
 clc;
 global TestMat;
 global FEAT;
@@ -9,10 +9,14 @@ global IM;
 global Sbin;
 global Hog_dim1;
 global Hog_dim2;
+global PARA;
+global BB;
+global X;
+warning('off','MATLAB:HandleGraphics:ObsoletedProperty:JavaFrame');
 
 data_dir = 'C:/Users/fi_student/PASCAL_data/VOCdevkit/'
 dataset ='VOC2007'
-results_dir ='C:/Users/fi_student/results/2'
+results_dir ='C:/Users/fi_student/results/200'
 try
     rmdir(results_dir, 's');
 end

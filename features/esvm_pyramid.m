@@ -67,16 +67,16 @@ for i = 1:MAXLEVELS
     return;
   end
 
-  %feat{i} = params.init_params.features(scaled,sbin);
+ feat{i} = params.init_params.features(scaled,sbin);
   
-  feats1=params.init_params.features(scaled,sbin);
-  if((size(feats1,1)<1) || (size(feats1,2)<1))
-    feats2=feats1(:,:,1:11);
-  else
-    feats2=Do_MyColorName(scaled,sbin,size(feats1,1),size(feats1,2));
-  end
-  feats=cat(3,(feats1(:,:,1:end-1)),(feats2(:,:,1:end)),feats1(:,:,32));
-  feat{i} = feats;
+%   feats1=params.init_params.features(scaled,sbin);
+%   if((size(feats1,1)<1) || (size(feats1,2)<1))
+%     feats2=feats1(:,:,1:11);
+%   else
+%     feats2=Do_MyColorName(scaled,sbin,size(feats1,1),size(feats1,2));
+%   end
+%   feats=cat(3,(feats1(:,:,1:end-1)),(feats2(:,:,1:end)),feats1(:,:,32));
+%   feat{i} = feats;
 
   %if we get zero size feature, backtrack one, and dont produce any
   %more levels

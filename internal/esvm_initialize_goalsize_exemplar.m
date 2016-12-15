@@ -82,14 +82,19 @@ model.x = curfeats;
 [model.bb, model.x] = get_target_bb(model, I, init_params);
 %new code:
 %model.bb = zeros(1,size(curfeats,2));
+% global BB;
+% global X;
+% BB = model.bb;
+% X =model.x;
 
+%error('test')
 %Normalized-HOG initialization
 
 %%replaced by Florian Wirthmüller
 %new code:
-%model.w = reshape(model.x,size(model.w));
+model.w = reshape(model.x,size(model.w));
 %replaced code:
-model.w = reshape(model.x,size(model.w)) - mean(model.x(:));
+%model.w = reshape(model.x,size(model.w)) - mean(model.x(:));
 
 if isfield(init_params,'wiggle_number') && ...
       (init_params.wiggle_number > 1)

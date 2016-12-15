@@ -112,6 +112,7 @@ if length(svm_model.sv_coef) == 0
   wex = m.model.w;
   b = m.model.b;
   fprintf(1,'reverting to old model...\n');
+  fprintf(' --- Max positive not calculated.......\n');
 else
   
   %convert support vectors to decision boundary
@@ -139,11 +140,15 @@ else
   %% issue a warning if the norm is very small
   if norm(wex) < .00001
     fprintf(1,'learning broke down!\n');
-  end  
-end
-
+  end
 maxpos = max(wex'*m.model.x - b);
 fprintf(1,' --- Max positive is %.3f\n',maxpos);
+end
+
+%%replaced by Florian Wirthmüller
+%%replaced code:
+%maxpos = max(wex'*m.model.x - b); // moved into the else loop
+%fprintf(1,' --- Max positive is %.3f\n',maxpos); // moved into the else loop
 fprintf(1,'SVM iteration took %.3f sec, ',toc(starttime));
 
 m.model.w = reshape(wex, size(m.model.w));

@@ -1,4 +1,4 @@
-function [im,im2] = HOGpicture_CN(w, bs)
+function [im,im2] = HOGpicture_CN(w, bs, method)
 %%% w should not be folded by HOG
 %%% color information should be in bins 32:42
 % HOGpicture(w, bs)
@@ -22,7 +22,7 @@ else % use average color_name color
         
     end
 end
-method=1; %%% do max of the CN =1; mean=2
+%%method=2; %%% do max of the CN =1; mean=2
 
 % construct a "glyph" for each orientaion
 bim1 = ones(bs, bs);

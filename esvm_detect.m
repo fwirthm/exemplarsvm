@@ -288,7 +288,8 @@ sbin = models{1}.model.init_params.sbin;
 t = get_pyramid(I, sbin, params);
 resstruct.padder = t.padder;
 
-pyr_N = cellfun(@(x)prod([size(x,1) size(x,2)]-S+1),t.hog);
+%pyr_N = cellfun(@(x)prod([size(x,1) size(x,2)]-S+1),t.hog);
+pyr_N = cellfun(@(x)prod(max(0,[size(x,1) size(x,2)] -S+1)),t.hog);
 sumN = sum(pyr_N);
 
 X = zeros(S(1)*S(2)*fsize,sumN);
@@ -453,6 +454,7 @@ if isnumeric(I)
   %Compute pyramid
   [t.hog, t.scales] = esvm_pyramid(I, params);
   t.padder = params.detect_pyramid_padding;
+  
   for level = 1:length(t.hog)
     t.hog{level} = padarray(t.hog{level}, [t.padder t.padder 0], 0);
   end

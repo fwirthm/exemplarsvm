@@ -1,4 +1,4 @@
-function [m] = esvm_mine_train_iteration(m, training_function)
+function [m] = esvm_mine_train_iteration(m, training_function, N, n)
 %% ONE ITERATION OF: Mine negatives until cache is full and update the current
 % classifier using training_function (do_svm, do_rank, ...). m must
 % contain the field m.train_set, which indicates the current
@@ -40,7 +40,7 @@ end
 m = update_the_model(m, mining_stats, training_function);
 
 if isfield(m,'dataset_params') && m.dataset_params.display == 1
-  dump_figures(m);
+  dump_figures(m, N, n);
 end
 
 function [m] = update_the_model(m, mining_stats, training_function)
@@ -54,6 +54,7 @@ end
 
 m = training_function(m);
 
+
 % Append new w to trace
 m.model.wtrace{end+1} = m.model.w;
 m.model.btrace{end+1} = m.model.b;
@@ -66,7 +67,7 @@ m.model.btrace{end+1} = m.model.b;
 % end
 % m.model.svbbs(:,end) = r;
 
-function dump_figures(m)
+function dump_figures(m, N, n)
 
 % figure(1)
 % clf
@@ -81,7 +82,8 @@ function dump_figures(m)
 %                     m.objectid,m.iteration),'-dpng'); 
 % end
 
-figure(2)
+Fig_ = figure(2);
+set(Fig_, 'Position', [20 340 650 650]);
 clf
 Isv1 = esvm_show_det_stack(m,7);
 
@@ -89,7 +91,9 @@ imagesc(Isv1)
 axis image
 axis off
 iter = length(m.model.wtrace)-1;
-title(sprintf('Ex %s.%d.%s SVM-iter=%03d',m.curid,m.objectid,m.cls,iter))
+title(sprintf('Exemplar %d of %d\nEx %s.%d.%s SVM-iter=%03d',...
+n,N,...
+m.curid,m.objectid,m.cls,iter))
 drawnow
 snapnow
 
@@ -97,6 +101,15 @@ if (m.mining_params.dump_images == 1) || ...
       (m.mining_params.dump_last_image == 1 && ...
        m.iteration == m.mining_params.train_max_mine_iterations)
 
+   if ~exist('m.mining_params.final_directory', 'var')
+       m.mining_params.final_directory = ...
+        sprintf('%s/models/%s/',params.dataset_params.localdir,...
+                new_models_name);
+       m.mining_params.final_directory = mkdir(final_directory);
+       fprintf('Done now!\n')
+       
+   end
+   
   imwrite(Isv1,sprintf('%s/%s.%d_iter_I=%05d.png', ...
                     m.mining_params.final_directory, m.curid,...
                     m.objectid, m.iteration), 'png');

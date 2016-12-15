@@ -15,6 +15,7 @@ imt_padd=imt_padd/255;
 
 index1 = zeros(size(im,1), size(im,2), 11);
 
+
 r_ = im(:, :, 1);
 g_ = im(:, :, 2);
 b_ = im(:, :, 3);
@@ -28,6 +29,33 @@ index1(:, :,5) = g_./rgbSum;
 %blue chanel
 index1(:, :,2) = b_./rgbSum;
 
+size(index1)
+
+
+
+for row = 1:1:size(im,1)
+    for col = 1:1:size(im,2)
+        %red chanel
+        r_ = im(row, col, 1);
+        %green chanel
+        g_ = im(row, col, 2);
+        %blue chanel
+        b_ = im(row, col, 3);
+        
+        rgbSum = r_ + g_ + b_;
+        
+        %red chanel
+        index1(row, col,9) =  r_/rgbSum;
+        %green chanel
+        index1(row, col,5) = g_/rgbSum;
+        %blue chanel
+        index1(row, col,2) = b_/rgbSum;
+    end
+
+end
+
+size(index1)
+error('test')
 
 index2=index1(sbin+1:(blocks_1-1)*sbin,sbin+1:(blocks_2-1)*sbin,:);
 if(sigma~=0)

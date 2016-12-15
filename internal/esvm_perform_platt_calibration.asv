@@ -281,7 +281,7 @@ for exid = 1:length(models)
       m2{1}.model.svbbs(:,6) = 1;
       m2{1}.model.svxs = [];
       Fig_ = figure(445);
-      set(Fig_, 'Position', [810 220 700 700]);
+      set(Fig_, 'Position', [0 0 600 600]);
       clf
       imagesc(esvm_show_det_stack(m2{1},8))
       axis image
@@ -293,6 +293,8 @@ for exid = 1:length(models)
                     models{exid}.curid,...
                     models{exid}.objectid, ...
                     models{exid}.cls))
+      frame_h = get(handle(gcf),'JavaFrame');
+      set(frame_h,'Maximized',1); 
       
       drawnow
       snapnow

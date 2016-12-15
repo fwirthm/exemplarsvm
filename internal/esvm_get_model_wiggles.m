@@ -48,6 +48,7 @@ end
 lilI = resize(I,bb(8));
 fprintf(1,'Warning: using esvm_features directly\n');
 f = esvm_features(lilI,sbin);
+
 f = padarray(f,[NEWPAD NEWPAD 0]);
 xxx_base = f(u-2+(1:hg_size(1)),v-2+(1:hg_size(2)),:);
 

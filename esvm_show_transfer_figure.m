@@ -63,6 +63,7 @@ for i = 1:N
   flip = topboxes(i,7);
   hogpic = HOGpicture(models{topboxes(i,6)}.model.w);
   hogpic = jettify(hogpic);
+ 
   if flip == 1
     hogpic = flip_image(hogpic);
   end
@@ -75,10 +76,10 @@ for i = 1:N
   Iex1 = imresize(hogpic,[size(Iex1,1) size(Iex,2)], 'nearest');
   Iex1 = max(0.0,min(1.0,Iex1));
   
+  
   PPP = round(size(Iex,1)*.2);
   Iex2 = Iex1(1:PPP,:,:)*0+1;
   Ishow = cat(1,Iex1,Iex2,Iex);
-
   
   SHOW_SEG = 1;
   if SHOW_SEG == 1
@@ -367,6 +368,30 @@ if add_one == 1
     clipped_top([3 4]) = clipped_top([3 4])-2;
     plot_bbox(clipped_top,models{1}.cls,curcolor,curcolor,0,[2 1]);
   end
-end  
+  
+
+end
+
+thisFig = figure(7);
+subplot(1,2,1)
+colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,2);
+
+imagesc(colorpic);
+set(thisFig, 'Position', [1200 250 600 300]);
+title('Color features - MEAN');
+axis image
+axis off
+grid on
+
+subplot(1,2,2)
+colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,1);
+imagesc(colorpic);
+title('Color features - MAX');
+axis image
+axis off
+grid on
+
+drawnow;
+
 
 

@@ -60,7 +60,7 @@ DUMPDIR = sprintf('%s/www/svs/%s/',params.dataset_params.localdir, ...
 final_directory = ...
     sprintf('%s/models/%s/',params.dataset_params.localdir,...
             new_models_name);
-
+     
 %make results directory if needed
 if CACHE_FILE == 1 && ~exist(final_directory,'dir')
   mkdir(final_directory);
@@ -130,7 +130,11 @@ for i = 1:length(models)
       total_mines = sum(cellfun(@(x)x.total_mines,m.mining_stats));
     end
     m.total_mines = total_mines;
-    m = esvm_mine_train_iteration(m, params.training_function);
+    m = esvm_mine_train_iteration(m, params.training_function, length(models), i);
+
+%     fprintf('after iteration:')
+%     min(min(min(m.model.w(:,:,32:42))))
+
 
     if ((total_mines >= params.train_max_mined_images) || ...
           (isempty(m.mining_queue))) || ...

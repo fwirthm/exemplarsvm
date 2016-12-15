@@ -20,7 +20,7 @@ for i = 1:length(pinds)
   models = allmodels(pinds{i});
 
   myFig = figure(i);
-  set(myFig, 'Position', [800 600 1100 400]);
+  set(myFig, 'Position', [400 400 960 540]);
   clf
   N = length(models);
   for i = 1:N
@@ -92,7 +92,7 @@ for i = 1:length(pinds)
     grid on
     title('Color features - MAX')
     
-
+    suptitle(sprintf('Exemplar %d of %d', i, length(al)));
     
     global W2;
     W2 = repmat(m.model.mask,[1 1 size(m.model.w,3)]).* ...

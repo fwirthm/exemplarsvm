@@ -12,7 +12,7 @@ function default_params = esvm_get_default_params
 %(using during training and testing)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Turn on image flips for detection/training. If enabled, processing
-%happes on each image as well as its left-right flipped version.
+%happens on each image as well as its left-right flipped version.
 default_params.detect_add_flip = 1;
 
 %Levels-per-octave defines how many levels between 2x sizes in pyramid
@@ -39,6 +39,7 @@ default_params.detect_max_windows_per_exemplar = 10;
 %NOTE: mining is much faster if this is turned off!
 default_params.detect_exemplar_nms_os_threshold = 0.5;
 
+
 %How much we pad the pyramid (to let detections fall outside the image)
 default_params.detect_pyramid_padding = 5;
 
@@ -52,6 +53,7 @@ default_params.detect_min_scale = .01;
 %global bounding box.  If greater than 0, then only keep detections
 %that have this OS with the entire input image.
 default_params.detect_min_scene_os = 0.0;
+%default_params.detect_min_scene_os = 0.7;
 
 % Choose the number of images to process in each chunk for detection.
 % This parameters tells us how many images each core will process at
@@ -74,7 +76,8 @@ default_params.train_max_negatives_in_cache = 2000;
 %Maximum global number of mining iterations, where an iteration is
 %when queue fills with max_windows_before_svm detections or
 %max_windows_before_svm images have been processed
-default_params.train_max_mine_iterations = 100;
+%default_params.train_max_mine_iterations = 100;
+default_params.train_max_mine_iterations = 10;
 
 %Maximum TOTAL number of image accesses from the mining queue
 default_params.train_max_mined_images = 2500;

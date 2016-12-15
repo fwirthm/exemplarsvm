@@ -239,6 +239,7 @@ for k = 1:maxk
     drawnow
     snapnow
     
+    
     if CACHE_FILES == 1
       %print(gcf,'-depsc2',filer);
       print(gcf,'-dpng',filer);

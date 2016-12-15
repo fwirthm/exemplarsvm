@@ -134,6 +134,7 @@ for i = 1:length(e_set)
   %Call the init function which is a mapping from (I,bbox) to (model)
   %florian Wirthmüller: this is esvm_initialize_goalsize_exemplar
   [model] = params.init_params.init_function(I, bbox, params.init_params);
+  %min(min(min(model.w(:,:,32:42))))
   
   clear m
   m.model = model;    
@@ -171,6 +172,7 @@ for i = 1:length(e_set)
   %Show the initialized exemplars
   if params.dataset_params.display == 1
     esvm_show_exemplar_frames({m}, 1, params.dataset_params);
+    suptitle(sprintf('Exemplar %d of %d', i, length(e_set)));
     drawnow
     snapnow;
   end

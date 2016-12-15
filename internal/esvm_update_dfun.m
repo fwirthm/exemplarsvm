@@ -125,6 +125,9 @@ fprintf(1,' --- Max positive is %.3f\n',maxpos);
 fprintf(1,'took %.3f sec\n',toc(starttime));
 
 m.model.w = reshape(wex, size(m.model.w));
+
+
+
 m.model.b = b;
 
 %Take top train_max_negatives detections 
