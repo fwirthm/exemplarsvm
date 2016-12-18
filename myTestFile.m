@@ -2,6 +2,7 @@ tic;
 close all
 clear all
 clc;
+global p;
 global TestMat;
 global FEAT;
 global W2;
@@ -12,6 +13,9 @@ global Hog_dim2;
 global PARA;
 global BB;
 global X;
+global Mat;
+global Cell;
+global MyCell;
 warning('off','MATLAB:HandleGraphics:ObsoletedProperty:JavaFrame');
 
 data_dir = 'C:/Users/fi_student/PASCAL_data/VOCdevkit/'
