@@ -32,8 +32,11 @@ else
 %     gtfile = sprintf('%s/%s.xml',strrep(basedir,'JPEGImages', ...
 %                                         'Annotations'),fname);
 %new code
+%     gtfile = sprintf('%s/%s.xml',strrep(basedir,'images', ...
+%                                         'annotationsCopy'),fname);
     gtfile = sprintf('%s/%s.xml',strrep(basedir,'imagesCopy', ...
                                         'annotationsCopy2'),fname);
+
     %gtfile = sprintf(dataset_params.annopath,curid);
     recs = PASreadrecord(gtfile);
   else

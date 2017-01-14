@@ -104,6 +104,8 @@ for d=1:nd
     
     % find ground truth image
     %i=VOChash_lookup(hash,ids{d});
+
+    
     i = iii(d);
     if isempty(i)
         error('unrecognized image "%s"',ids{d});
@@ -115,6 +117,14 @@ for d=1:nd
     bb=BB(:,d);
     ovmax=-inf;
 
+    
+    global i__;
+    global gt__;
+    global BB__;
+    i__ = i;
+    gt__ = gt;
+    BB__ = BB;
+    
     for j=1:size(gt(i).BB,2)
         bbgt=gt(i).BB(:,j);
         bi=[max(bb(1),bbgt(1)) ; max(bb(2),bbgt(2)) ; min(bb(3),bbgt(3)) ; min(bb(4),bbgt(4))];

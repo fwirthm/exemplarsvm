@@ -5,8 +5,11 @@ function VOCopts = VOCinit(VOCopts)
 global seperation;
 
 VOCopts.annopath=[VOCopts.datadir VOCopts.dataset '/annotationsCopy2/%s.xml'];
+% VOCopts.annopath=[VOCopts.datadir VOCopts.dataset '/annotationsCopy/%s.xml'];
+% VOCopts.annopath=[VOCopts.datadir VOCopts.dataset '/Annotations/%s.xml'];
 % VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/JPEGImages/%s'];
 VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/imagesCopy/%s.jpg'];
+% VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/images/%s.jpg'];
 
 if seperation ~= 0
     VOCopts.imgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/' seperation '/%s.txt'];

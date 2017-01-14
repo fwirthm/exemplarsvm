@@ -5,7 +5,9 @@ clc;
 tic
 
 %% parameters
-inputDir = 'C:\Datasets\FI2015\annotationsCopy';
+oldInputDir = 'C:\Datasets\FI2015\annotations';
+inputDir = 'C:\Datasets\FI2015\annotationsCopy2';
+% inputDir = 'C:\Datasets\FI2015\annotationsCopy';
 annoTypes = {'flower', 'leaf'};
 databaseDir = 'C:\Datasets\images.sqlite';
 speciesListDir = 'C:\Datasets\FI2015\species.csv';
@@ -18,7 +20,7 @@ files = transpose(dir(fullfile(inputDir,'*.xml')));
 makeImageSets(files, inputDir, outputDir, annoTypes);
 
 %% seperated by species
-fprintf('start with: "seperated by species"\n')
+fprintf('start with: "seperated by species"\n');
 
 fileID = fopen(speciesListDir);
 speciesStruct = textscan(fileID,'%d;%s %s');
@@ -48,6 +50,13 @@ for speciesId = 1:1:size(speciesList,2)
     if size(files,2)>0
         cd C:\Users\fi_student\Documents\exemplarsvm
         files = RenameField(files, 'filepath', 'name');
+        for id = 1:1: size(files,2)
+            path = [oldInputDir, '\', files(id).name];
+            XML = xmlread(path);
+            xml = xml2struct(XML);
+            files(id).name = strrep (xml.annotation.filename.Text, '.jpeg', '.xml');
+        end
+        
         makeImageSets(files, inputDir, outputDir, annoTypes);
         cd C:\Users\fi_student\repos\matlab-sqlite3-driver
     end

@@ -19,6 +19,7 @@ rec.size.depth=str2double(x.size.depth);
 rec.segmented=strcmp(x.segmented,'1');
 
 rec.imgname=[x.folder '/imagesCopy/' x.filename];
+% rec.imgname=[x.folder '/images/' x.filename];
 % rec.imgname=[x.folder '/JPEGImages/' x.filename];
 rec.imgsize=str2double({x.size.width x.size.height x.size.depth});
 rec.database=rec.source.database;

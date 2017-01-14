@@ -18,15 +18,21 @@ if isstr(I)
     if (length(I)>=7 && strcmp(I(1:7),'http://'))
       fprintf(1,'Warning: loading image from URL\n');
     end
-    try
-      I = imread(I);
-    catch
-      try
-      I = imread([I, '.jpeg']);
-      catch
-      fprintf(1,'Cannot load image: %s\n',I);
-      I = zeros(0,0,3);
-      end
+    
+    if or(strcmp(I(length(I)-3:length(I)),'.jpg'), strcmp(I(length(I)-4:length(I)),'.jpeg'))
+        try
+            I = imread(I);
+        catch
+            fprintf(1,'Cannot load image: %s\n',I);
+            I = zeros(0,0,3);
+        end
+    else
+        try            
+            I = imread([I, '.jpg']);
+        catch
+            fprintf(1,'Cannot load image: %s\n',I);
+            I = zeros(0,0,3);
+        end
     end
   else
     I = eval(I);
