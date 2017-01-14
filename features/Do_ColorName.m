@@ -7,9 +7,13 @@ sigma=half_size/2;
 blocks_1=round(size(im,1)/sbin);
 blocks_2=round(size(im,2)/sbin);
 
-imt_padd=im;
-imt_padd=imt_padd/255;
-index1=im2c(imt_padd*255,w2c,-2); % compute the probability of the color names for all pixels
+%%replaced by mse
+%new code:
+index1=im2c(im*255,w2c,-2);
+%replaced code:
+% imt_padd=im;
+% imt_padd=imt_padd/255;
+% index1=im2c(imt_padd*255,w2c,-2); % compute the probability of the color names for all pixels
 index2=index1(sbin+1:(blocks_1-1)*sbin,sbin+1:(blocks_2-1)*sbin,:);
 if(sigma~=0)
      index2=color_gauss(index2,sigma,0,0);

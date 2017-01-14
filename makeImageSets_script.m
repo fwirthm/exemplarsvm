@@ -2,22 +2,20 @@
 close all;
 clear all;
 clc;
-
+tic
 
 %% parameters
-inputDir = 'C:\Datasets\FI2015\annotations';
+inputDir = 'C:\Datasets\FI2015\annotationsCopy';
 annoTypes = {'flower', 'leaf'};
 databaseDir = 'C:\Datasets\images.sqlite';
 speciesListDir = 'C:\Datasets\FI2015\species.csv';
-
-%% switch to datebase tool
-cd C:\Users\fi_student\repos\matlab-sqlite3-driver
 
 %% not seperated
 fprintf('start with: "not seperated"\n')
 outputDir = 'C:\Datasets\FI2015\ImageSets\notSeperated';
 files = transpose(dir(fullfile(inputDir,'*.xml')));
-%makeImageSets(files, inputDir, outputDir, annoTypes);
+
+makeImageSets(files, inputDir, outputDir, annoTypes);
 
 %% seperated by species
 fprintf('start with: "seperated by species"\n')
@@ -31,10 +29,12 @@ for i=1:1:size(speciesStruct{1,2},1)
     speciesList{1,i}=[speciesStruct{1,2}{i,1}, ' ', speciesStruct{1,3}{i,1}];
 end
 
+%switch to datebase tool
+cd C:\Users\fi_student\repos\matlab-sqlite3-driver
 database = sqlite3.open(databaseDir);
 for speciesId = 1:1:size(speciesList,2)
     %% iterate over all species
-    fprintf(['    species:',speciesList{speciesId},' \n']);
+    fprintf(['    species:',speciesList{speciesId},' --species ' sprintf('%d of %d', speciesId, size(speciesList,2)) '\n']);
     outputDir = strcat('C:\Datasets\FI2015\ImageSets\seperatedBySpecies\',strrep(speciesList{speciesId},' ','_'));
     
     %select the ids of all images which belong to this species
@@ -63,3 +63,4 @@ outputDir = 'C:\Datasets\FI2015\ImageSets\seperatedBySpeciesAndView';
 
 %% return to this dir
 cd C:\Users\fi_student\Documents\exemplarsvm
+toc

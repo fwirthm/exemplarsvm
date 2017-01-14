@@ -11,6 +11,7 @@ if exist(cp,'file')
     %keyboard
   end
 else
+    sprintf(VOCopts.imgsetpath,VOCopts.testset)
     [gtids,t]=textread(sprintf(VOCopts.imgsetpath,VOCopts.testset),'%s %d');
     for i=1:length(gtids)
         % display progress

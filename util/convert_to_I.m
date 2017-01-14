@@ -21,8 +21,12 @@ if isstr(I)
     try
       I = imread(I);
     catch
+      try
+      I = imread([I, '.jpeg']);
+      catch
       fprintf(1,'Cannot load image: %s\n',I);
       I = zeros(0,0,3);
+      end
     end
   else
     I = eval(I);

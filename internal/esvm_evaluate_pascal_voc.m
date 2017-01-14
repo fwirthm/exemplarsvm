@@ -44,8 +44,11 @@ has_marker = (target_directory=='+') + ...
 has_marker = find(has_marker);
 if length(has_marker) > 0
   VOCopts.testset = target_directory(1:has_marker(1)-1);
+  VOCopts.testset = [cls '_' VOCopts.testset];
+  %fprintf('first')
 else
   VOCopts.testset = target_directory;
+  fprintf('second')
 end
 
 resfile = sprintf('%s/%s%s_%s_results.mat',VOCopts.resdir, ...

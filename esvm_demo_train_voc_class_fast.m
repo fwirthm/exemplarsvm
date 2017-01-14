@@ -46,6 +46,10 @@ end
 dataset_params = esvm_get_voc_dataset(dataset_directory,...
                                       data_directory,...
                                       results_directory);
+ %% edited by M. Seeland
+if strcmp(dataset_params.dataset, 'FI2015')
+    dataset_params.imgpath = dataset_params.imgpath(1:end-4);
+end
 
 
 dataset_params.display = 1;
@@ -67,10 +71,9 @@ end
 params = esvm_get_default_params;
 params.model_type = 'exemplar';
 params.dataset_params = dataset_params;
-
 %Initialize exemplar stream
 stream_params.stream_set_name = 'trainval';
-stream_params.stream_max_ex = 2;
+stream_params.stream_max_ex = 30;
 stream_params.must_have_seg = 0;
 stream_params.must_have_seg_string = '';
 stream_params.model_type = 'exemplar'; %must be scene or exemplar;
@@ -96,9 +99,9 @@ initial_models = esvm_initialize_exemplars(e_stream_set, params, models_name);
 %% Perform Exemplar-SVM training
 train_params = params;
 train_params.detect_max_scale = 0.5;
-train_params.train_max_mined_images = 25;
+train_params.train_max_mined_images = 80;
 train_params.detect_exemplar_nms_os_threshold = 1.0;
-train_params.detect_max_windows_per_exemplar = 30;
+train_params.detect_max_windows_per_exemplar = 50;
 
 %% Train the exemplars and get updated models name
 [models,models_name] = esvm_train_exemplars(initial_models, ...
@@ -114,7 +117,7 @@ val_params.gt_function = @esvm_load_gt_function;
 val_set_name = ['trainval+' cls];
 
 val_set = esvm_get_pascal_set(dataset_params, val_set_name);
-val_set = val_set(1:30);
+val_set = val_set(1:300);
 
 %% Apply trained exemplars on validation set
 val_grid = esvm_detect_imageset(val_set, models, val_params, val_set_name);
@@ -128,7 +131,7 @@ test_params = params;
 test_params.detect_exemplar_nms_os_threshold = 0.5;
 test_set_name = ['test+' cls];
 test_set = esvm_get_pascal_set(dataset_params, test_set_name);
-test_set = test_set(1:100);
+test_set = test_set(1:300);
 
 %% Apply on test set
 test_grid = esvm_detect_imageset(test_set, models, test_params, test_set_name);
@@ -142,5 +145,5 @@ allbbs = esvm_show_top_dets(test_struct, test_grid, test_set, models, ...
                        params,  maxk, test_set_name);
 
 %% Perform the exemplar evaluation
-[results] = esvm_evaluate_pascal_voc(test_struct, test_grid, params, ...
-                                     test_set_name, cls, models_name);
+% [results] = esvm_evaluate_pascal_voc(test_struct, test_grid, params, ...
+%                                      test_set_name, cls, models_name);

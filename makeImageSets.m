@@ -30,12 +30,15 @@ function makeImageSets(files, inputDir, outputDir, annoTypes)
     end
 
 
+    fileCount = 0;
     for file = files
         %% iterate over all xml-files in the folder
-        XML = xmlread(strcat(inputDir,'\',file.name));
+        xmlFileName = file.name;
+        XML = xmlread(strcat(inputDir,'\',xmlFileName));
         XML = xml2struct(XML);
-        fileName = XML.annotation.filename.Text;
-        [filePath, fileName, fileExt] = fileparts(fileName);
+        [xmlFilePath, xmlFileName, xmlFileExt] = fileparts(xmlFileName);
+%         fileName = XML.annotation.filename.Text;
+%         [filePath, fileName, fileExt] = fileparts(fileName);
 
         if size(XML.annotation.object,2)==1;
             %% if there is only one annotation, we have to pack the object
@@ -78,20 +81,23 @@ function makeImageSets(files, inputDir, outputDir, annoTypes)
 
             if (mod(annoTypeCounters_struct{AnnoTypeCountersId}{annoId},11)==0)
                 %% append each 11th element of the sama class to testset
-                fprintf(Fid_test{annoId}, [fileName, '  ', which_str, ' \n']);
+                fprintf(Fid_test{annoId}, [xmlFileName, '  ', which_str, ' \n']);
             elseif (mod(annoTypeCounters_struct{AnnoTypeCountersId}{annoId},11)<=5)  
                 %% append 5 out of 11 files to trainset and trainval
-                fprintf(Fid_train{annoId}, [fileName, '  ', which_str, ' \n']);
-                fprintf(Fid_trainval{annoId}, [fileName, '  ', which_str, ' \n']);
+                fprintf(Fid_train{annoId}, [xmlFileName, '  ', which_str, ' \n']);
+                fprintf(Fid_trainval{annoId}, [xmlFileName, '  ', which_str, ' \n']);
             else
                 %% append 5 out of 11 files to val and trainval
-                fprintf(Fid_val{annoId}, [fileName, '  ', which_str, ' \n']);
-                fprintf(Fid_trainval{annoId}, [fileName, '  ', which_str, ' \n']);
+                fprintf(Fid_val{annoId}, [xmlFileName, '  ', which_str, ' \n']);
+                fprintf(Fid_trainval{annoId}, [xmlFileName, '  ', which_str, ' \n']);
             end
             annoTypeCounters_struct{AnnoTypeCountersId}{annoId}=annoTypeCounters_struct{AnnoTypeCountersId}{annoId}+1;
 
         end
-
+        fileCount = fileCount + 1;
+        if mod(fileCount, 1000)==0
+            fprintf(sprintf('already processed %d of %d files\n', fileCount, size(files,2)));
+        end
     end
 
     for annoTypeId = 1:1:size(annoTypes,2)

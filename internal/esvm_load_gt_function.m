@@ -27,8 +27,13 @@ else
     
     % get GT objects for this image
     [basedir,fname,ext] = fileparts(Iname);
-    gtfile = sprintf('%s/%s.xml',strrep(basedir,'JPEGImages', ...
-                                        'Annotations'),fname);
+%% edited by F.Wirthmueller
+%replaced code
+%     gtfile = sprintf('%s/%s.xml',strrep(basedir,'JPEGImages', ...
+%                                         'Annotations'),fname);
+%new code
+    gtfile = sprintf('%s/%s.xml',strrep(basedir,'imagesCopy', ...
+                                        'annotationsCopy2'),fname);
     %gtfile = sprintf(dataset_params.annopath,curid);
     recs = PASreadrecord(gtfile);
   else

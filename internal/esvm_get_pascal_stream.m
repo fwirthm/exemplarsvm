@@ -58,6 +58,8 @@ if length(stream_params.cls)>0 && isfield(dataset_params,'clsimgsetpath') ...
 %   [ids,gt] = textread(modifiedStr, '%s %d');
   
 %replaced code:
+sprintf(dataset_params.clsimgsetpath,stream_params.cls,...
+                            stream_params.stream_set_name)
   [ids,gt] = textread(sprintf(dataset_params.clsimgsetpath,stream_params.cls,...
                             stream_params.stream_set_name),...
                      '%s %d');
@@ -101,7 +103,9 @@ for i = 1:length(all_recs)
   end
     
   if isstr(all_recs{i})
-    filename = sprintf(dataset_params.imgpath,curid);
+    %% edited by M.Seeland
+%       filename = sprintf(dataset_params.imgpath,curid);
+    filename = sprintf(dataset_params.imgpath, recs.filename);
   else
     filename = all_I{i};
   end

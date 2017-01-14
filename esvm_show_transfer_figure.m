@@ -372,24 +372,24 @@ if add_one == 1
 
 end
 
-thisFig = figure(7);
-subplot(1,2,1)
-colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,2);
-
-imagesc(colorpic);
-set(thisFig, 'Position', [1200 250 600 300]);
-title('Color features - MEAN');
-axis image
-axis off
-grid on
-
-subplot(1,2,2)
-colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,1);
-imagesc(colorpic);
-title('Color features - MAX');
-axis image
-axis off
-grid on
+% thisFig = figure(7);
+% subplot(1,2,1)
+% colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,2);
+% 
+% imagesc(colorpic);
+% set(thisFig, 'Position', [1200 250 600 300]);
+% title('Color features - MEAN');
+% axis image
+% axis off
+% grid on
+% 
+% subplot(1,2,2)
+% colorpic = HOGpicture_CN(models{topboxes(i,6)}.model.w,20,1);
+% imagesc(colorpic);
+% title('Color features - MAX');
+% axis image
+% axis off
+% grid on
 
 drawnow;
 

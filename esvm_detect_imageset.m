@@ -116,7 +116,8 @@ for i = 1:length(ordering)
     Iname = imageset{index};
 
     try
-      hit = strfind(Iname,'JPEGImages/');
+%       hit = strfind(Iname,'JPEGImages/');
+      hit = strfind(Iname,'images/');
       curid = Iname((hit+11):end);
       hit = strfind(curid,'.');
       curid = curid(1:(hit(end)-1));      

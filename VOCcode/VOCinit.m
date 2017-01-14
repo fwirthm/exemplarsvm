@@ -2,12 +2,22 @@ function VOCopts = VOCinit(VOCopts)
 
 % initialize main challenge paths
 
-VOCopts.annopath=[VOCopts.datadir VOCopts.dataset '/Annotations/%s.xml'];
-VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/JPEGImages/%s.jpg'];
-VOCopts.imgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/Main/%s.txt'];
-VOCopts.clsimgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/Main/%s_%s.txt'];
+global seperation;
+
+VOCopts.annopath=[VOCopts.datadir VOCopts.dataset '/annotationsCopy2/%s.xml'];
+% VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/JPEGImages/%s'];
+VOCopts.imgpath=[VOCopts.datadir VOCopts.dataset '/imagesCopy/%s.jpg'];
+
+if seperation ~= 0
+    VOCopts.imgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/' seperation '/%s.txt'];
+    VOCopts.clsimgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/' seperation '/%s_%s.txt'];
+else
+    VOCopts.imgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/%s.txt'];
+    VOCopts.clsimgsetpath=[VOCopts.datadir VOCopts.dataset '/ImageSets/%s_%s.txt'];
+end
 VOCopts.clsrespath=[VOCopts.resdir 'Main/%s_cls_' VOCopts.testset '_%s.txt'];
 VOCopts.detrespath=[VOCopts.resdir 'Main/%s_det_' VOCopts.testset '_%s.txt'];
+
 
 % initialize segmentation task paths
 
@@ -36,27 +46,31 @@ VOCopts.action.respath=[VOCopts.resdir 'Action/%s_action_' VOCopts.testset '_%s.
 
 % classes
 
+% VOCopts.classes={...
+%     'aeroplane'
+%     'bicycle'
+%     'bird'
+%     'boat'
+%     'bottle'
+%     'bus'
+%     'car'
+%     'cat'
+%     'chair'
+%     'cow'
+%     'diningtable'
+%     'dog'
+%     'horse'
+%     'motorbike'
+%     'person'
+%     'pottedplant'
+%     'sheep'
+%     'sofa'
+%     'train'
+%     'tvmonitor'};
+
 VOCopts.classes={...
-    'aeroplane'
-    'bicycle'
-    'bird'
-    'boat'
-    'bottle'
-    'bus'
-    'car'
-    'cat'
-    'chair'
-    'cow'
-    'diningtable'
-    'dog'
-    'horse'
-    'motorbike'
-    'person'
-    'pottedplant'
-    'sheep'
-    'sofa'
-    'train'
-    'tvmonitor'};
+    'flower'
+    'leaf'};
 
 VOCopts.nclasses=length(VOCopts.classes);	
 
@@ -67,7 +81,14 @@ VOCopts.poses={...
     'Left'
     'Right'
     'Frontal'
-    'Rear'};
+    'Rear'
+    'top'
+    'side'
+    'left'
+    'frontal'
+    'unspecified'
+    'rear'
+    'right'};
 
 VOCopts.nposes=length(VOCopts.poses);
 

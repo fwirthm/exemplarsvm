@@ -25,7 +25,7 @@ end
 
 %Expand the bbox to have some minimum and maximum aspect ratio
 %constraints (if it it too horizontal, expand vertically, etc)
-bbox = expand_bbox(bbox,I);
+bbox = expand_bbox(bbox,I); 
 bbox = max(bbox,1);
 bbox([1 3]) = min(size(I,2),bbox([1 3]));
 bbox([2 4]) = min(size(I,1),bbox([2 4]));
