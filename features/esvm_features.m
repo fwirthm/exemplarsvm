@@ -1,14 +1,25 @@
 function x = esvm_features(I, sbin)
+
+%% original code
+% %Return the current feature function
+% 
+% if nargin == 0
+%   x = 31;
+%   return
+% end
+% 
+% x = features_pedro(I,sbin);
+% %x = features_raw(I,sbin);
+
+
+%% new code
 %Return the current feature function
 
 if nargin == 0
-  %x = 31;
   x = 43;
   return
 end
 
-%x = features_pedro(I,sbin);
-%x = features_raw(I,sbin);
 x = features_cnhog(I,sbin);
 
 if((size(x,1)<1) || (size(x,2)<1))

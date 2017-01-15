@@ -144,6 +144,9 @@ maxk = 20;
 allbbs = esvm_show_top_dets(test_struct, test_grid, test_set, models, ...
                        params,  maxk, test_set_name);
 
+fprintf(test_set_name)
+fprintf('\n')
+                   
 %% Perform the exemplar evaluation
 [results] = esvm_evaluate_pascal_voc(test_struct, test_grid, params, ...
                                      test_set_name, cls, models_name);

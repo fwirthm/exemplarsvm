@@ -28,7 +28,7 @@ if isstr(I)
         end
     else
         try            
-            I = imread([I, '.jpg']);
+            I = imread([I, '.jpeg']);
         catch
             fprintf(1,'Cannot load image: %s\n',I);
             I = zeros(0,0,3);

@@ -81,15 +81,15 @@ function makeImageSets(files, inputDir, outputDir, annoTypes)
 
             if (mod(annoTypeCounters_struct{AnnoTypeCountersId}{annoId},11)==0)
                 %% append each 11th element of the sama class to testset
-                fprintf(Fid_test{annoId}, [xmlFileName, '  ', which_str, ' \n']);
+                fprintf(Fid_test{annoId}, [xmlFileName, ' ', which_str, '\n']);
             elseif (mod(annoTypeCounters_struct{AnnoTypeCountersId}{annoId},11)<=5)  
                 %% append 5 out of 11 files to trainset and trainval
-                fprintf(Fid_train{annoId}, [xmlFileName, '  ', which_str, ' \n']);
-                fprintf(Fid_trainval{annoId}, [xmlFileName, '  ', which_str, ' \n']);
+                fprintf(Fid_train{annoId}, [xmlFileName, ' ', which_str, '\n']);
+                fprintf(Fid_trainval{annoId}, [xmlFileName, ' ', which_str, '\n']);
             else
                 %% append 5 out of 11 files to val and trainval
-                fprintf(Fid_val{annoId}, [xmlFileName, '  ', which_str, ' \n']);
-                fprintf(Fid_trainval{annoId}, [xmlFileName, '  ', which_str, ' \n']);
+                fprintf(Fid_val{annoId}, [xmlFileName, ' ', which_str, '\n']);
+                fprintf(Fid_trainval{annoId}, [xmlFileName, ' ', which_str, '\n']);
             end
             annoTypeCounters_struct{AnnoTypeCountersId}{annoId}=annoTypeCounters_struct{AnnoTypeCountersId}{annoId}+1;
 
