@@ -144,8 +144,8 @@ maxk = 20;
 allbbs = esvm_show_top_dets(test_struct, test_grid, test_set, models, ...
                        params,  maxk, test_set_name);
 
-fprintf(test_set_name)
-fprintf('\n')
+fprintf(test_set_name);
+fprintf('\n');
 test_set_name = ['test+' cls];
                    
 %% Perform the exemplar evaluation

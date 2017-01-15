@@ -11,7 +11,14 @@ if exist(cp,'file')
     %keyboard
   end
 else
-    sprintf(VOCopts.imgsetpath,VOCopts.testset)
+    text__ = sprintf(VOCopts.imgsetpath,VOCopts.testset);
+    fprintf('********\n');
+    fprintf('********\n');
+    fprintf(VOCopts.imgsetpath);
+    fprintf('\n');
+    fprintf(text__);
+    fprintf('********\n');
+    fprintf('********\n');
     [gtids,t]=textread(sprintf(VOCopts.imgsetpath,VOCopts.testset),'%s %d');
     for i=1:length(gtids)
         % display progress
