@@ -12,14 +12,19 @@ if exist(cp,'file')
   end
 else
     text__ = sprintf(VOCopts.imgsetpath,VOCopts.testset);
+    text__ = strrep(text__, '//', '/');
     fprintf('********\n');
     fprintf('********\n');
     fprintf(VOCopts.imgsetpath);
     fprintf('\n');
     fprintf(text__);
+    fprintf('\n');
     fprintf('********\n');
     fprintf('********\n');
-    [gtids,t]=textread(sprintf(VOCopts.imgsetpath,VOCopts.testset),'%s %d');
+    
+    
+%     [gtids,t]=textread(sprintf(VOCopts.imgsetpath,VOCopts.testset),'%s %d');
+    [gtids,t]=textread(text__,'%s %d');
     for i=1:length(gtids)
         % display progress
         if toc>1
