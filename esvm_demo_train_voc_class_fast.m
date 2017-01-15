@@ -146,6 +146,7 @@ allbbs = esvm_show_top_dets(test_struct, test_grid, test_set, models, ...
 
 fprintf(test_set_name)
 fprintf('\n')
+test_set_name = ['test+' cls];
                    
 %% Perform the exemplar evaluation
 [results] = esvm_evaluate_pascal_voc(test_struct, test_grid, params, ...

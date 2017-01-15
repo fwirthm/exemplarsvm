@@ -48,7 +48,7 @@ if length(has_marker) > 0
   %fprintf('first')
 else
   VOCopts.testset = target_directory;
-  fprintf('second')
+%   fprintf('second')
 end
 
 resfile = sprintf('%s/%s%s_%s_results.mat',VOCopts.resdir, ...
