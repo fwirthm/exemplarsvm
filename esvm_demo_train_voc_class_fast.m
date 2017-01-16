@@ -73,7 +73,7 @@ params.model_type = 'exemplar';
 params.dataset_params = dataset_params;
 %Initialize exemplar stream
 stream_params.stream_set_name = 'trainval';
-stream_params.stream_max_ex = 1;
+stream_params.stream_max_ex = 10;
 stream_params.must_have_seg = 0;
 stream_params.must_have_seg_string = '';
 stream_params.model_type = 'exemplar'; %must be scene or exemplar;
@@ -99,9 +99,9 @@ initial_models = esvm_initialize_exemplars(e_stream_set, params, models_name);
 %% Perform Exemplar-SVM training
 train_params = params;
 train_params.detect_max_scale = 0.5;
-train_params.train_max_mined_images = 5;
+train_params.train_max_mined_images = 50;
 train_params.detect_exemplar_nms_os_threshold = 1.0;
-train_params.detect_max_windows_per_exemplar = 5;
+train_params.detect_max_windows_per_exemplar = 40;
 
 %% Train the exemplars and get updated models name
 [models,models_name] = esvm_train_exemplars(initial_models, ...
@@ -117,7 +117,7 @@ val_params.gt_function = @esvm_load_gt_function;
 val_set_name = ['trainval+' cls];
 
 val_set = esvm_get_pascal_set(dataset_params, val_set_name);
-val_set = val_set(1:3);
+val_set = val_set(1:100);
 
 %% Apply trained exemplars on validation set
 val_grid = esvm_detect_imageset(val_set, models, val_params, val_set_name);
@@ -131,7 +131,7 @@ test_params = params;
 test_params.detect_exemplar_nms_os_threshold = 0.5;
 test_set_name = ['test+' cls];
 test_set = esvm_get_pascal_set(dataset_params, test_set_name);
-test_set = test_set(1:3);
+test_set = test_set(1:150);
 
 %% Apply on test set
 test_grid = esvm_detect_imageset(test_set, models, test_params, test_set_name);

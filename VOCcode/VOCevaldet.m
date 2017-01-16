@@ -68,6 +68,8 @@ else
   filename = sprintf(VOCopts.detrespath,id,cls);
 end
 
+
+filename
 % % load results
 [ids,confidence,b1,b2,b3,b4]=textread(filename,'%s %f %f %f %f %f');
 BB=[b1 b2 b3 b4]';

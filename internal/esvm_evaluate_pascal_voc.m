@@ -89,7 +89,9 @@ if fileexists(filer) || (mymkdir_dist(filerlock)==0)
 else
   fid = fopen(filer,'w');
   for i = 1:length(test_struct.final_boxes)
-    curid = grid{i}.curid;
+      
+    curid = grid{i}.curid
+    fprintf('here is the error')
     for q = 1:size(test_struct.final_boxes{i},1)
       fprintf(fid,'%s %f %f %f %f %f\n',curid,...
               test_struct.final_boxes{i}(q,end),...

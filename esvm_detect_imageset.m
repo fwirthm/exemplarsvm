@@ -40,6 +40,8 @@ if isempty(imageset)
   return;
 end
 
+save_files
+
 if save_files == 1
   
   models_name = '';
@@ -49,7 +51,7 @@ if save_files == 1
   end
   final_file = sprintf('%s/detections/%s-%s.mat',...
                        params.dataset_params.localdir,setname, ...
-                       models_name);
+                       models_name)
 
   if fileexists(final_file)
     res = load(final_file);
@@ -117,13 +119,19 @@ for i = 1:length(ordering)
 
     try
 %       hit = strfind(Iname,'JPEGImages/');
-      hit = strfind(Iname,'images/');
+%       hit = strfind(Iname,'images/');
+      hit = strfind(Iname,'imagesCopy/');
       curid = Iname((hit+11):end);
-      hit = strfind(curid,'.');
-      curid = curid(1:(hit(end)-1));      
+      
+      if or(strcmp(curid(length(curid)-3:end),'.jpg'), strcmp(curid(length(curid)-4:end),'.jpeg'))
+        hit = strfind(curid,'.');
+        curid = curid(1:(hit(end)-1));   
+      end
+      
       %[tmp,curid,tmp] = fileparts(Iname);
     catch
       curid = '';
+      fprintf('error: curid could not be filed correctly')
     end
     
     I = convert_to_I(Is{j});
@@ -195,14 +203,23 @@ for i = 1:length(ordering)
   end
 end
 
+
+
 if save_files == 0
   grid = cellfun2(@(x)x{1},allfiles);
   return;
 end
 
+
+global allfiles__;
+allfiles__ = allfiles;
+
 [allfiles] = sort(allfiles);
 grid = esvm_load_result_grid(params.dataset_params, models, ...
                              setname, ...
                              allfiles);
+                         
+global grid__1;
+grid__1 = grid;
 
 
